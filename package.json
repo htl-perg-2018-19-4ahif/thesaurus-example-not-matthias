@@ -17,7 +17,11 @@
   },
   "homepage": "https://github.com/htl-perg-2018-19-4ahif/thesaurus-example-not-matthias#readme",
   "devDependencies": {
+    "@types/node": "^10.12.8",
     "tslint": "^5.11.0",
     "typescript": "^3.1.6"
+  },
+  "dependencies": {
+    "commander": "^2.19.0"
   }
 }

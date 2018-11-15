@@ -4,6 +4,14 @@
         "tslint:recommended"
     ],
     "jsRules": {},
-    "rules": {},
+    "rules": {
+        "quotemark": [true, "single"],
+        "indent": [true, "spaces", 4],
+        "curly": [true, "as-needed"],
+        "object-literal-sort-keys": false,
+        "no-consecutive-blank-lines": false,
+        "trailing-comma": false,
+        "no-console": false,
+    },
     "rulesDirectory": []
 }
