@@ -4,7 +4,9 @@
   "description": "A simple implementation of a command-line Thesaurus tool.",
   "main": "src/thesaurus.ts",
   "scripts": {
-    "start": "tsc --outDir out src/thesaurus.ts && node out/thesaurus.js"
+    "build": "tsc --outDir out src/thesaurus.ts",
+    "start": "npm run build && node out/thesaurus.js",
+    "start-i": "npm run build && node out/thesaurus.js -i"
   },
   "repository": {
     "type": "git",
