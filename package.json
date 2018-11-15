@@ -2,9 +2,9 @@
   "name": "thesaurus-example-not-matthias",
   "version": "1.0.0",
   "description": "A simple implementation of a command-line Thesaurus tool.",
-  "main": "src/index.ts",
+  "main": "src/thesaurus.ts",
   "scripts": {
-    "start": "tsc --outDir out src/index.ts && node out/index.js"
+    "start": "tsc --outDir out src/thesaurus.ts && node out/thesaurus.js"
   },
   "repository": {
     "type": "git",
