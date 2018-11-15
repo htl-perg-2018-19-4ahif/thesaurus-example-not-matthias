@@ -23,5 +23,7 @@
     "tslint": "^5.11.0",
     "typescript": "^3.1.6"
   },
-  "dependencies": {}
+  "dependencies": {
+    "line-by-line": "^0.1.6"
+  }
 }
