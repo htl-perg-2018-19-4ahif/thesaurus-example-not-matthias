@@ -1,41 +1,43 @@
 const fs = require('fs');
 var LineByLineReader = require('line-by-line');
 
+const thesaurus = 'ressources/OpenThesaurus-Textversion/openthesaurus.txt';
 
 
-const findDefinition = (word: string): any => {
-    const file = new LineByLineReader('ressources/OpenThesaurus-Textversion/openthesaurus.txt');
-    let definitions: any = {};
 
-    file.on('line', function (line: string) {
-        // Ignore comments
-        if (line.trim().indexOf('#') === 0) return;
+const findDefinition = async (word: string) => {
+    new Promise(resolve => {
+        const file = new LineByLineReader(thesaurus);
+        let definitions: any = {};
+        let test = "";
 
-        const synonymArray = line.split(";");
-        const lowerCaseLine = line.toLowerCase();
-        const lowerCaseWord = word.toLowerCase();
-        let keyword: string[];
+        file.on('line', function (line: string) {
+            // Ignore comments
+            if (line.trim().indexOf('#') === 0) return;
 
-        // Check if the string contains the word
-        if ((keyword = lowerCaseLine.split(";").filter(e => e.indexOf(lowerCaseWord) !== -1))) {
-            if (keyword[0]) {
-                const filteredDefinitions = synonymArray.filter(e => e.toLowerCase() !== keyword[0]);
+            const synonymArray = line.split(";");
+            const lowerCaseWord = word.toLowerCase();
+            let keyword: string[];
 
-                // Add it to the object
-                definitions[keyword[0]] = {
-                    definition: filteredDefinitions
-                };
+            // Check if the string contains the word
+            if ((keyword = line.split(";").filter(e => e.toLowerCase().indexOf(lowerCaseWord) !== -1))) {
+                if (keyword[0]) {
+                    const filteredDefinitions = synonymArray.filter(e => e.toLowerCase() !== keyword[0].toLowerCase());
 
-                console.log(`Synonyms for the word \"${keyword}\": \n ${filteredDefinitions}\n`);
+                    // Add it to the object
+                    test += keyword[0];
+                    definitions[keyword[0]] = {
+                        definition: filteredDefinitions
+                    };
+
+                    // console.log(`Synonyms for the word \"${keyword[0]}\": \n ${filteredDefinitions}\n`);
+                }
             }
-        }
-    });
+        });
 
-
-    file.on('end', function () {
-        console.log("end: ");
         console.log(definitions);
-        return definitions;
+        console.log(test);
+        resolve(definitions);
     });
 };
 
@@ -49,11 +51,10 @@ if (process.argv.length === 3 && process.argv[2] === '-i') {
         const words: string[] = process.argv.slice(2);
 
         for (const word of words) {
-            const definitions = findDefinition(word);
+            findDefinition(word).then(console.log);
 
             // Print it
-            console.log(`Definition found:`);
-            console.log(definitions);
+
         }
     } else {
         console.log('Please specify words.');

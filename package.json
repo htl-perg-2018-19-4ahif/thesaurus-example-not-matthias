@@ -4,7 +4,7 @@
   "description": "A simple implementation of a command-line Thesaurus tool.",
   "main": "src/thesaurus.ts",
   "scripts": {
-    "build": "tsc --outDir out src/thesaurus.ts",
+    "build": "tsc --outDir out --target es6 src/thesaurus.ts",
     "start": "npm run build && node out/thesaurus.js",
     "start-i": "npm run build && node out/thesaurus.js -i"
   },
@@ -24,6 +24,7 @@
     "typescript": "^3.1.6"
   },
   "dependencies": {
-    "line-by-line": "^0.1.6"
+    "line-by-line": "^0.1.6",
+    "node-line-reader": "0.0.2"
   }
 }
