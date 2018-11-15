@@ -1,0 +1,22 @@
+{
+  "name": "thesaurus-example-not-matthias",
+  "version": "1.0.0",
+  "description": "A simple implementation of a command-line Thesaurus tool.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htl-perg-2018-19-4ahif/thesaurus-example-not-matthias.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/htl-perg-2018-19-4ahif/thesaurus-example-not-matthias/issues"
+  },
+  "homepage": "https://github.com/htl-perg-2018-19-4ahif/thesaurus-example-not-matthias#readme",
+  "devDependencies": {
+    "typescript": "^3.1.6"
+  }
+}
