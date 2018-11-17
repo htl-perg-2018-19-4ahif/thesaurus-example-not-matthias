@@ -1,42 +1,41 @@
 const jasmine = require('jasmine');
 const cp = require('child_process');
 
-const errorMessage = 'Please specify words.\n';
-const noDefinitionMessage = 'No matches found.\n';
+const outNoWords = 'Please specify words.\n';
+const outNoDefinition = 'No matches found.\n';
+const outOneWord = `Definitions for the word \"Dummy-Variable\":\n    Stellvertreter-Variable\n    Scheinvariable\nDefinitions for the word "Dummy":\n    Puppe\n    Attrappe\n`;
+const outTwoWords = `Definitions for the word "Cherrytomate":\n    Kirschtomate\n    Cocktailtomate\nDefinitions for the word "MDF-Platte":\n    mitteldichte Faserplatte\n    mitteldichte Holzfaserplatte\n`;
 
 describe('Normal Converter', () => {
-    // Negative tests
     describe('Negative tests', () => {
-        // it('No Words', done => {
-        //     cp.exec('node out/thesaurus.js', (err, stdout) => {
-        //         expect(stdout).toBe(errorMessage);
-        //         done();
-        //     });
-        // });
+        it('No Words', done => {
+            cp.exec('node out/thesaurus.js', (err, stdout) => {
+                expect(stdout).toBe(outNoWords);
+                done();
+            });
+        });
 
-        // it('No Matches Found', done => {
-        //     cp.exec('node out/thesaurus.js Perg', (err, stdout) => {
-        //         expect(stdout).toBe(noDefinitionMessage);
-        //         done();
-        //     });
-        // });
+        it('No Matches Found', done => {
+            cp.exec('node out/thesaurus.js Perg', (err, stdout) => {
+                expect(stdout).toBe(outNoDefinition);
+                done();
+            });
+        });
     });
 
-    // Positive tests
     describe('Positive tests', () => {
+        it('Single Word, Multiple Matches', done => {
+            cp.exec('node out/thesaurus.js Dummy', (err, stdout) => {
+                expect(stdout).toBe(outOneWord);
+                done();
+            });
+        });
 
-        // it('Single Word, Multiple Matches', done => {
-        //     cp.exec('node out/thesaurus.js Rundfenster', (err, stdout) => {
-        //         expect(stdout).toBe("Definitions for the word \"Rundfenster\": \n    Oculus\n    Ochsenauge");
-        //         done();
-        //     });
-        // });
-
-        // it('Multiple Words, Single Match for each Word', done => {
-        //     cp.exec('node out/thesaurus.js Rundfenster', (err, stdout) => {
-        //         expect(stdout).toBe(noDefinitionMessage);
-        //         done();
-        //     });
-        // });
+        it('Multiple Words, Single Match for each Word', done => {
+            cp.exec('node out/thesaurus.js Cherrytomate MDF', (err, stdout) => {
+                expect(stdout).toBe(outTwoWords);
+                done();
+            });
+        });
     });
 });

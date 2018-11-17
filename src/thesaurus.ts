@@ -54,7 +54,7 @@ const printResponse = (response: any) => {
         console.log("No matches found.");
     else {
         for (var word in response.definitions) {
-            console.log(`Definitions for the word \"${word}\": `);
+            console.log(`Definitions for the word \"${word}\":`);
 
             for (var i = 0; i < response.definitions[word].definition.length; i++)
                 console.log(`    ${response.definitions[word].definition[i]}`);
