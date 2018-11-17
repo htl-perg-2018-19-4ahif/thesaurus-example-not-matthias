@@ -27,7 +27,7 @@ describe('Normal Converter', () => {
         
         it('Single Word, Multiple Matches', done => {
             cp.exec('node out/thesaurus.js Rundfenster', (err, stdout) => {
-                expect(stdout).toBe(noDefinitionMessage);
+                expect(stdout).toBe("");
                 done();
             });
         });

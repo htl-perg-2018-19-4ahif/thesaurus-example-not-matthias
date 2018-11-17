@@ -13,23 +13,25 @@ const findDefinition = async (word: string) => {
     new Promise(resolve => {
         const file = new LineByLineReader(thesaurus);
         let definitions: any = {};
+        let matchFound = false;
 
         file.on('line', function (line: string) {
             // Ignore comments
             if (line.trim().indexOf('#') === 0) return;
 
-            const definitionArray = line.split(";");
-            const lowerCaseWord = word.toLowerCase();
+            const definitionArray = line.split(';');
             let keyword: string[];
 
             // Check if the string contains the word
-            if ((keyword = line.split(";").filter(lineWord => lineWord.toLowerCase().indexOf(lowerCaseWord) !== -1)) && keyword[0]) {
-                const filteredDefinitions = definitionArray.filter(definition => definition.toLowerCase() !== keyword[0].toLowerCase());
+            if ((keyword = line.split(';').filter(lineWord => lineWord.indexOf(word) !== -1)) && keyword[0]) {
+                const filteredDefinitions = definitionArray.filter(definition => definition !== keyword[0]);
 
                 // Add it to the object
                 definitions[keyword[0]] = {
                     definition: filteredDefinitions
                 };
+
+                matchFound = true;
 
                 // Print it
                 console.log(`Definitions for the word \"${keyword[0]}\": `);
@@ -37,6 +39,10 @@ const findDefinition = async (word: string) => {
                 console.log();
             }
         });
+
+        if (!matchFound)
+            console.log('No matches found.');
+
 
         resolve(definitions);
     });
@@ -51,10 +57,10 @@ if (process.argv[2] === '-i') {
     });
 
     rl.on('line', (line: any) => {
-        if (line === "\\q")
+        if (line === '\\q')
             process.exit();
 
-        findDefinition(line).then(console.log);
+        findDefinition(line)/*.then(console.log)*/;
     });
 } else
     // Normal mode
@@ -62,7 +68,7 @@ if (process.argv[2] === '-i') {
         const words: string[] = process.argv.slice(2);
 
         for (const word of words) {
-            findDefinition(word).then(console.log);
+            findDefinition(word)/*.then(console.log)*/;
 
             // TODO: Print it here
         }
