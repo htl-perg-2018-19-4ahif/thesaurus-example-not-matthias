@@ -4,7 +4,6 @@ const LineByLineReader = require('line-by-line');
 
 const thesaurus = 'ressources/OpenThesaurus-Textversion/openthesaurus.txt';
 
-
 /**
  * Searches the specified keyword in the thesaurus
  * @param word the keyword to search in the thesaurus
@@ -40,8 +39,8 @@ const findDefinition = async (word: string) => {
             }
         });
 
-        if (!matchFound)
-            console.log('No matches found.');
+        // if (!matchFound)
+        //     console.log('No matches found.');
 
 
         resolve(definitions);
