@@ -1,10 +1,8 @@
 const jasmine = require('jasmine');
 const cp = require('child_process');
 
-
 const errorMessage = 'Please specify words.\n';
 const noDefinitionMessage = 'No matches found.\n';
-
 
 describe('Normal Converter', () => {
     // Negative tests

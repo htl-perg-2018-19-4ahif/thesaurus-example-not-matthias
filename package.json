@@ -26,6 +26,7 @@
   "dependencies": {
     "child-process": "^1.0.2",
     "jasmine": "^3.3.0",
+    "jasmine-spec-reporter": "^4.2.1",
     "line-by-line": "^0.1.6",
     "node-line-reader": "0.0.2"
   }
