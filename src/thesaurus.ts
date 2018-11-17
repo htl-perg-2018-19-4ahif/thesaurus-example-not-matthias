@@ -5,45 +5,43 @@ const LineByLineReader = require('line-by-line');
 const thesaurus = 'ressources/OpenThesaurus-Textversion/openthesaurus.txt';
 
 /**
+ * Contains the response data for the findDefinition function
+ */
+class DefinitionResponse {
+    public matchFound: boolean = false;
+    public definitions: any = {};
+}
+
+/**
  * Searches the specified keyword in the thesaurus
  * @param word the keyword to search in the thesaurus
  */
 const findDefinition = async (word: string) => {
-    new Promise(resolve => {
+    return new Promise(resolve => {
         const file = new LineByLineReader(thesaurus);
-        let definitions: any = {};
-        let matchFound = false;
+        let response: DefinitionResponse = new DefinitionResponse();
 
         file.on('line', function (line: string) {
-            // Ignore comments
             if (line.trim().indexOf('#') === 0) return;
 
             const definitionArray = line.split(';');
             let keyword: string[];
 
             // Check if the string contains the word
-            if ((keyword = line.split(';').filter(lineWord => lineWord.indexOf(word) !== -1)) && keyword[0]) {
+            if ((keyword = definitionArray.filter(lineWord => lineWord.indexOf(word) !== -1)) && keyword[0]) {
                 const filteredDefinitions = definitionArray.filter(definition => definition !== keyword[0]);
 
-                // Add it to the object
-                definitions[keyword[0]] = {
+                response.definitions[keyword[0]] = {
                     definition: filteredDefinitions
                 };
 
-                matchFound = true;
-
-                // Print it
-                console.log(`Definitions for the word \"${keyword[0]}\": `);
-                filteredDefinitions.forEach(definition => console.log(`    ${definition}`));
-                console.log();
+                response.matchFound = true;
             }
         });
 
-        // if (!matchFound)
-        //     console.log('No matches found.');
-
-
-        resolve(definitions);
+        file.on("end", function () {
+            return resolve(response);
+        });
     });
 };
 
@@ -59,7 +57,7 @@ if (process.argv[2] === '-i') {
         if (line === '\\q')
             process.exit();
 
-        findDefinition(line)/*.then(console.log)*/;
+        findDefinition(line).then(console.log);
     });
 } else
     // Normal mode
@@ -67,9 +65,7 @@ if (process.argv[2] === '-i') {
         const words: string[] = process.argv.slice(2);
 
         for (const word of words) {
-            findDefinition(word)/*.then(console.log)*/;
-
-            // TODO: Print it here
+            findDefinition(word).then(console.log);
         }
     } else {
         console.log('Please specify words.');
