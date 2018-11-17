@@ -16,7 +16,7 @@ class DefinitionResponse {
  * Searches the specified keyword in the thesaurus.
  * @param word the keyword to search in the thesaurus
  */
-const findDefinition = async (word: string) => {
+const findDefinition = (word: string) => {
     return new Promise(resolve => {
         const file = new LineByLineReader(thesaurus);
         let response: DefinitionResponse = new DefinitionResponse();
