@@ -45,6 +45,18 @@ const findDefinition = async (word: string) => {
     });
 };
 
+const printResponse = (response: any) => {
+    if (!response.matchFound)
+        console.log("No matches found.");
+    else {
+        for (var word in response.definitions) {
+            console.log(`Definitions for the word \"${word}\": `);
+
+            for (var i = 0; i < response.definitions[word].definition.length; i++)
+                console.log(`    ${response.definitions[word].definition[i]}`);
+        }
+    }
+}
 
 // Interactive mode
 if (process.argv[2] === '-i') {
@@ -57,16 +69,15 @@ if (process.argv[2] === '-i') {
         if (line === '\\q')
             process.exit();
 
-        findDefinition(line).then(console.log);
+        findDefinition(line).then(printResponse);
     });
 } else
     // Normal mode
     if (process.argv[2] !== '-i' && process.argv.length > 2) {
         const words: string[] = process.argv.slice(2);
 
-        for (const word of words) {
-            findDefinition(word).then(console.log);
-        }
+        for (const word of words)
+            findDefinition(word).then(printResponse);
     } else {
         console.log('Please specify words.');
     }
