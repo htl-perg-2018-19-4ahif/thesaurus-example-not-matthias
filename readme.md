@@ -14,5 +14,11 @@ npm install
 ## Usage
 
 ```
-npm start
+npm start <keyword>
+```
+
+or 
+
+```
+npm run start-i
 ```
