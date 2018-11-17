@@ -5,6 +5,7 @@
   "main": "src/thesaurus.ts",
   "scripts": {
     "build": "tsc --outDir out --target es6 src/thesaurus.ts",
+    "test": "jasmine",
     "start": "npm run build && node out/thesaurus.js",
     "start-i": "npm run build && node out/thesaurus.js -i"
   },
