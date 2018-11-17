@@ -3,10 +3,6 @@ const readline = require('readline');
 const LineByLineReader = require('line-by-line');
 
 const thesaurus = 'ressources/OpenThesaurus-Textversion/openthesaurus.txt';
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
 
 
 /**
@@ -48,7 +44,12 @@ const findDefinition = async (word: string) => {
 
 
 // Interactive mode
-if (process.argv.length === 3 && process.argv[2] === '-i') {
+if (process.argv[2] === '-i') {
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
     rl.on('line', (line: any) => {
         if (line === "\\q")
             process.exit();
@@ -57,7 +58,7 @@ if (process.argv.length === 3 && process.argv[2] === '-i') {
     });
 } else
     // Normal mode
-    if (process.argv.length > 2) {
+    if (process.argv[2] !== '-i' && process.argv.length > 2) {
         const words: string[] = process.argv.slice(2);
 
         for (const word of words) {
