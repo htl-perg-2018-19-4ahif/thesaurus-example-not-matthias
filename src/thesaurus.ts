@@ -49,14 +49,11 @@ const findDefinition = async (word: string) => {
 
 // Interactive mode
 if (process.argv.length === 3 && process.argv[2] === '-i') {
-    // Print without newline
-    process.stdout.write("Search defintion for the word: ");
     rl.on('line', (line: any) => {
         if (line === "\\q")
             process.exit();
 
-        findDefinition(line);
-        process.stdout.write("Search defintion for the word: ");
+        findDefinition(line).then(console.log);
     });
 } else
     // Normal mode
