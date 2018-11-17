@@ -13,7 +13,7 @@ class DefinitionResponse {
 }
 
 /**
- * Searches the specified keyword in the thesaurus
+ * Searches the specified keyword in the thesaurus.
  * @param word the keyword to search in the thesaurus
  */
 const findDefinition = async (word: string) => {
@@ -45,6 +45,10 @@ const findDefinition = async (word: string) => {
     });
 };
 
+/**
+ * Print a response.
+ * @param response the response of the findDefinition function
+ */
 const printResponse = (response: any) => {
     if (!response.matchFound)
         console.log("No matches found.");
