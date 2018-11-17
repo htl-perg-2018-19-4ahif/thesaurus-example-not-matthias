@@ -1,6 +1,12 @@
 const fs = require('fs');
+const readline = require('readline');
 const LineByLineReader = require('line-by-line');
+
 const thesaurus = 'ressources/OpenThesaurus-Textversion/openthesaurus.txt';
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
 
 /**
@@ -30,7 +36,7 @@ const findDefinition = async (word: string) => {
                 };
 
                 // Print it
-                console.log(`Synonyms for the word \"${keyword[0]}\": `);
+                console.log(`Definitions for the word \"${keyword[0]}\": `);
                 filteredDefinitions.forEach(definition => console.log(`    ${definition}`));
                 console.log();
             }
@@ -43,7 +49,15 @@ const findDefinition = async (word: string) => {
 
 // Interactive mode
 if (process.argv.length === 3 && process.argv[2] === '-i') {
-    console.log('Interactive mode.');
+    // Print without newline
+    process.stdout.write("Search defintion for the word: ");
+    rl.on('line', (line: any) => {
+        if (line === "\\q")
+            process.exit();
+
+        findDefinition(line);
+        process.stdout.write("Search defintion for the word: ");
+    });
 } else
     // Normal mode
     if (process.argv.length > 2) {
