@@ -6,7 +6,7 @@ const outNoDefinition = 'No matches found.\n';
 const outOneWord = `Definitions for the word \"Dummy-Variable\":\n    Stellvertreter-Variable\n    Scheinvariable\nDefinitions for the word "Dummy":\n    Puppe\n    Attrappe\n`;
 const outTwoWords = `Definitions for the word "Cherrytomate":\n    Kirschtomate\n    Cocktailtomate\nDefinitions for the word "MDF-Platte":\n    mitteldichte Faserplatte\n    mitteldichte Holzfaserplatte\n`;
 
-describe('Normal Converter', () => {
+describe('Thesaurus', () => {
     describe('Negative tests', () => {
         it('No Words', done => {
             cp.exec('node out/thesaurus.js', (err, stdout) => {
