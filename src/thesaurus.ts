@@ -25,7 +25,7 @@ const findDefinition = (word: string) => {
             if (line.trim().indexOf('#') === 0) return;
 
             const definitionArray = line.split(';');
-            let keyword: string[];
+            let keyword: Array<string>;
 
             // Check if the string contains the word
             if ((keyword = definitionArray.filter(lineWord => lineWord.indexOf(word) !== -1)) && keyword[0]) {
@@ -78,7 +78,7 @@ if (process.argv[2] === '-i') {
 } else
     // Normal mode
     if (process.argv[2] !== '-i' && process.argv.length > 2) {
-        const words: string[] = process.argv.slice(2);
+        const words: Array<string> = process.argv.slice(2);
 
         for (const word of words)
             findDefinition(word).then(printResponse);
